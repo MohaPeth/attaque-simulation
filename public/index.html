@@ -3,41 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Internal Document Portal</title>
+    <title>Internal Document Portal — Connexion</title>
     <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%234f8cff'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' fill='white' font-family='Arial' font-weight='800' font-size='10'%3EIDP%3C/text%3E%3C/svg%3E" />
   </head>
   <body class="login-page">
-    <main class="card">
-      <header class="brand">
+    <main class="login-card">
+      <header class="brand-block">
         <div class="logo">IDP</div>
         <h1>Internal Document Portal</h1>
-        <p class="subtitle">Portail documentaire interne — accès réservé aux employés</p>
+        <p class="subtitle">Espace documentaire interne — accès employés</p>
       </header>
 
-      <form id="loginForm" class="form">
+      <form id="loginForm" class="form" autocomplete="off">
         <label>
           Email professionnel
-          <input type="email" name="email" value="employee@company.local" required />
+          <input type="email" name="email" id="emailInput" value="employee@company.local" required />
         </label>
 
         <label>
           Mot de passe
-          <input type="password" name="password" value="password123" required />
+          <input type="password" name="password" id="passwordInput" value="password123" required />
         </label>
 
-        <button type="submit">Se connecter</button>
+        <button type="submit" id="submitBtn" class="btn-block">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Se connecter
+        </button>
       </form>
 
       <div id="msg" class="msg"></div>
 
-      <footer class="hint">
-        <strong>Comptes de démonstration :</strong>
-        <ul>
-          <li>employee@company.local / password123</li>
-          <li>hr@company.local / hr2024</li>
-          <li>admin@company.local / admin123</li>
-        </ul>
-      </footer>
+      <section class="demo-accounts">
+        <strong>Comptes de démonstration (clic pour pré-remplir) :</strong>
+        <div class="acc" data-email="employee@company.local" data-password="password123">
+          <span>employee@company.local</span>
+          <span class="badge">Employee</span>
+        </div>
+        <div class="acc" data-email="hr@company.local" data-password="hr2024">
+          <span>hr@company.local</span>
+          <span class="badge">HR</span>
+        </div>
+        <div class="acc" data-email="admin@company.local" data-password="admin123">
+          <span>admin@company.local</span>
+          <span class="badge">Admin</span>
+        </div>
+      </section>
     </main>
 
     <script src="/app.js"></script>

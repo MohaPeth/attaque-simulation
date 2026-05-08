@@ -48,10 +48,10 @@ TP6/
 ├── docker-compose.yml           # Déploiement vulnérable (docker.sock)
 ├── docker-compose.secure.yml    # Version DURCIE (contre-mesures)
 ├── .dockerignore
-├── public/                      # Frontend statique
-│   ├── index.html               # Page de login
-│   ├── dashboard.html           # Tableau de bord documentaire
-│   ├── style.css
+├── public/                      # Frontend statique (sidebar + dashboard SPA)
+│   ├── index.html               # Page de login (sélection rapide des comptes démo)
+│   ├── dashboard.html           # Sidebar + 4 vues (Documents / Upload / System / Status)
+│   ├── style.css                # Design system (Plus Jakarta Sans + JetBrains Mono)
 │   ├── app.js
 │   └── dashboard.js
 ├── src/
@@ -59,17 +59,20 @@ TP6/
 │   │   ├── users.json           # Comptes de démo
 │   │   └── documents.json       # Métadonnées documents
 │   ├── middleware/
-│   │   └── auth.js              # Middleware token
+│   │   └── auth.js              # Middleware token + rôle
 │   └── routes/
 │       ├── auth.js              # POST /api/login
 │       ├── files.js             # GET /api/files, GET /api/files/:id
 │       ├── upload.js            # POST /api/upload, GET /api/uploads
-│       └── status.js            # GET /api/status
+│       ├── status.js            # GET /api/status
+│       └── admin.js             # GET /api/admin/system  (interroge docker.sock)
 ├── documents/                   # Documents internes (texte)
 ├── uploads/                     # Stockage des fichiers téléversés
 └── docs/
-    ├── ATTACK_SCENARIO.md       # Scénario d'évasion pas-à-pas
-    └── HARDENING.md             # Contre-mesures et bonnes pratiques
+    ├── ATTACK_SCENARIO.md       # Scénario d'évasion pas-à-pas (cas réel)
+    ├── HARDENING.md             # Contre-mesures et bonnes pratiques
+    ├── SCREENSHOTS_GUIDE.md     # Liste ordonnée des captures pour le rapport
+    └── screenshots/             # Dossier où déposer les captures
 ```
 
 ---
@@ -114,14 +117,20 @@ docker compose -f docker-compose.secure.yml up --build
 
 ## 6. Endpoints API
 
-| Méthode | Endpoint              | Auth | Description                            |
-| ------- | --------------------- | ---- | -------------------------------------- |
-| GET     | `/api/status`         | non  | État de l'API                          |
-| POST    | `/api/login`          | non  | Authentification (retourne un token)   |
-| GET     | `/api/files`          | oui  | Liste des documents internes           |
-| GET     | `/api/files/:id`      | oui  | Lecture d'un document                  |
-| POST    | `/api/upload`         | oui  | Upload d'un document (`document=...`)  |
-| GET     | `/api/uploads`        | oui  | Liste des fichiers téléversés          |
+| Méthode | Endpoint              | Auth         | Description                                    |
+| ------- | --------------------- | ------------ | ---------------------------------------------- |
+| GET     | `/api/status`         | non          | État de l'API                                  |
+| POST    | `/api/login`          | non          | Authentification (retourne un token)           |
+| GET     | `/api/files`          | oui          | Liste des documents internes                   |
+| GET     | `/api/files/:id`      | oui          | Lecture d'un document                          |
+| POST    | `/api/upload`         | oui          | Upload d'un document (`document=...`)          |
+| GET     | `/api/uploads`        | oui          | Liste des fichiers téléversés                  |
+| GET     | `/api/admin/system`   | oui (admin)  | **System Health** : interroge Docker via socket|
+
+> **À propos de `/api/admin/system`** : cette route illustre une
+> *mauvaise pratique réelle et fréquente* (cf. Portainer, Watchtower, CI runners…)
+> qui consiste à monter `/var/run/docker.sock` dans l'app pour récupérer l'état
+> des conteneurs. Voir [`docs/ATTACK_SCENARIO.md`](docs/ATTACK_SCENARIO.md).
 
 ### Exemple — login + lecture d'un document
 

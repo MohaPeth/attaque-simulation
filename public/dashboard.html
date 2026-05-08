@@ -3,56 +3,205 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IDP — Dashboard</title>
+    <title>Internal Document Portal — Dashboard</title>
     <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%234f8cff'/%3E%3Ctext x='50%25' y='62%25' text-anchor='middle' fill='white' font-family='Arial' font-weight='800' font-size='10'%3EIDP%3C/text%3E%3C/svg%3E" />
   </head>
-  <body class="dashboard-page">
-    <header class="topbar">
-      <div class="brand-inline">
-        <div class="logo small">IDP</div>
-        <span>Internal Document Portal</span>
-      </div>
-      <div class="user-block">
-        <span id="userInfo">…</span>
-        <button id="logoutBtn" class="ghost">Déconnexion</button>
-      </div>
-    </header>
+  <body>
+    <div class="app-shell">
 
-    <main class="layout">
-      <section class="panel">
-        <h2>Documents internes</h2>
-        <div id="filesList" class="files-list">Chargement…</div>
-      </section>
+      <!-- =================== SIDEBAR =================== -->
+      <aside class="sidebar">
+        <div class="brand-row">
+          <div class="logo sm">IDP</div>
+          <div>
+            <div class="name">Document Portal</div>
+            <div class="tag">v1.0 · Internal</div>
+          </div>
+        </div>
 
-      <section class="panel">
-        <h2>Aperçu du document</h2>
-        <div id="filePreview" class="preview">Sélectionnez un document.</div>
-      </section>
+        <nav class="nav">
+          <div class="group-title">Espace de travail</div>
+          <button class="nav-btn active" data-page="documents">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Documents
+          </button>
+          <button class="nav-btn" data-page="upload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Téléverser
+          </button>
 
-      <section class="panel">
-        <h2>Uploader un document</h2>
-        <form id="uploadForm" class="form upload-form">
-          <label for="documentInput" class="sr-only">Fichier à téléverser</label>
-          <input
-            id="documentInput"
-            type="file"
-            name="document"
-            title="Sélectionnez un fichier à téléverser"
-            aria-label="Fichier à téléverser"
-            required
-          />
-          <button type="submit">Téléverser</button>
-        </form>
-        <div id="uploadMsg" class="msg"></div>
-        <h3>Fichiers uploadés</h3>
-        <div id="uploadsList" class="files-list compact">…</div>
-      </section>
+          <div class="group-title admin-only hidden">Administration</div>
+          <button class="nav-btn admin-only hidden" data-page="system">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            System Health
+          </button>
 
-      <section class="panel">
-        <h2>État de l'API</h2>
-        <pre id="statusBox" class="code">…</pre>
-      </section>
-    </main>
+          <div class="group-title">Diagnostic</div>
+          <button class="nav-btn" data-page="status">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            État API
+          </button>
+        </nav>
+
+        <div class="user-card">
+          <div class="avatar" id="userAvatar">?</div>
+          <div class="who">
+            <div class="name" id="userName">…</div>
+            <div class="role" id="userRole">…</div>
+          </div>
+          <button id="logoutBtn" title="Se déconnecter" aria-label="Se déconnecter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- =================== MAIN =================== -->
+      <main class="main">
+
+        <!-- ========== Page DOCUMENTS ========== -->
+        <section class="page active" data-page="documents">
+          <header class="page-header">
+            <div>
+              <h1>Documents internes</h1>
+              <p class="desc">Consultez les documents partagés par l'entreprise.</p>
+            </div>
+          </header>
+
+          <div class="kpi-row">
+            <div class="kpi"><div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="label">Documents</div><div class="value" id="kpiDocs">…</div></div></div>
+            <div class="kpi"><div class="icon ok"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="label">Mon rôle</div><div class="value cap" id="kpiRole">…</div></div></div>
+            <div class="kpi"><div class="icon warn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div><div class="label">Uploads</div><div class="value" id="kpiUploads">…</div></div></div>
+          </div>
+
+          <div class="grid-2">
+            <div class="panel">
+              <div class="panel-head">
+                <h2>Bibliothèque</h2>
+                <span class="meta" id="docCount">…</span>
+              </div>
+              <div id="filesList" class="doc-list">
+                <div class="empty-state"><div class="spinner"></div><div style="margin-top: 10px">Chargement…</div></div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-head">
+                <h2>Aperçu</h2>
+                <span class="meta">Cliquez sur un document</span>
+              </div>
+              <div id="filePreview" class="preview">
+                <div class="empty">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <div>Sélectionnez un document à gauche pour l'afficher ici.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Page UPLOAD ========== -->
+        <section class="page" data-page="upload">
+          <header class="page-header">
+            <div>
+              <h1>Téléverser un document</h1>
+              <p class="desc">Déposez un fichier dans le portail. Taille maximale : 10 Mo.</p>
+            </div>
+          </header>
+
+          <div class="panel">
+            <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
+              <label for="documentInput" class="sr-only">Fichier à téléverser</label>
+              <input
+                id="documentInput"
+                type="file"
+                name="document"
+                title="Sélectionnez un fichier à téléverser"
+                aria-label="Fichier à téléverser"
+                required />
+              <button type="submit">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Téléverser
+              </button>
+            </form>
+            <div id="uploadMsg" class="msg"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Fichiers déjà téléversés</h2>
+              <span class="meta" id="uploadsCount">…</span>
+            </div>
+            <div id="uploadsList" class="doc-list compact">
+              <div class="empty-state"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Page SYSTEM HEALTH (admin) ========== -->
+        <section class="page" data-page="system">
+          <header class="page-header">
+            <div>
+              <h1>System Health <span class="doc-tag direction tag-inline">Admin</span></h1>
+              <p class="desc">État du serveur applicatif et du moteur Docker hôte.</p>
+            </div>
+            <button id="refreshSystemBtn" class="ghost">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              Actualiser
+            </button>
+          </header>
+
+          <div id="systemAlert" class="alert info">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div>
+              <strong>Cette page interroge directement le Docker Engine via <code>/var/run/docker.sock</code>.</strong>
+              Pratique courante mais à risque — voir <code>docs/HARDENING.md</code>.
+            </div>
+          </div>
+
+          <div class="kpi-row" id="systemKpis"></div>
+
+          <div class="panel">
+            <div class="panel-head"><h2>Hôte</h2></div>
+            <div id="hostInfo" class="doc-list compact">
+              <div class="empty-state"><div class="spinner"></div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Conteneurs Docker</h2>
+              <span class="meta" id="containersCount">…</span>
+            </div>
+            <div id="containersTable">
+              <div class="empty-state"><div class="spinner"></div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2>Images Docker</h2>
+              <span class="meta" id="imagesCount">…</span>
+            </div>
+            <div id="imagesTable"></div>
+          </div>
+        </section>
+
+        <!-- ========== Page STATUS API ========== -->
+        <section class="page" data-page="status">
+          <header class="page-header">
+            <div>
+              <h1>État de l'API</h1>
+              <p class="desc">Réponse brute de l'endpoint <code>/api/status</code>.</p>
+            </div>
+          </header>
+          <div class="panel">
+            <pre id="statusBox" class="code">…</pre>
+          </div>
+        </section>
+
+      </main>
+    </div>
 
     <script src="/dashboard.js"></script>
   </body>

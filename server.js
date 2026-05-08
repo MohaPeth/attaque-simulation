@@ -6,6 +6,7 @@ const authRouter = require('./src/routes/auth');
 const filesRouter = require('./src/routes/files');
 const uploadRouter = require('./src/routes/upload');
 const statusRouter = require('./src/routes/status');
+const adminRouter = require('./src/routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use('/api', authRouter);
 app.use('/api', filesRouter);
 app.use('/api', uploadRouter);
 app.use('/api', statusRouter);
+app.use('/api', adminRouter);
 
 app.use((err, _req, res, _next) => {
   console.error('[ERR]', err);
