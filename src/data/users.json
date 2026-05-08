@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "email": "employee@company.local",
+    "password": "password123",
+    "role": "employee",
+    "fullName": "Alex Dupont"
+  },
+  {
+    "id": 2,
+    "email": "admin@company.local",
+    "password": "admin123",
+    "role": "admin",
+    "fullName": "Sophie Admin"
+  },
+  {
+    "id": 3,
+    "email": "hr@company.local",
+    "password": "hr2024",
+    "role": "hr",
+    "fullName": "Camille RH"
+  }
+]

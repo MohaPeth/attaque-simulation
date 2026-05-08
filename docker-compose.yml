@@ -1,0 +1,35 @@
+# =============================================================
+# Internal Document Portal - docker-compose
+#
+# /!\ CONFIGURATION DELIBEREMENT VULNERABLE
+#     Le service monte /var/run/docker.sock dans le conteneur
+#     afin de demontrer une attaque Container Escape.
+#
+#     Voir docs/HARDENING.md pour la version durcie.
+# =============================================================
+
+services:
+  internal-document-portal:
+    build: .
+    image: internal-document-portal:vulnerable
+    container_name: idp-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      # ---------- VULNERABILITE VOLONTAIRE ----------
+      # Expose le Docker Engine de l'hote au conteneur.
+      # Toute personne obtenant un shell dans le conteneur
+      # controle Docker => peut s'evader vers l'hote.
+      - /var/run/docker.sock:/var/run/docker.sock
+      # ----------------------------------------------
+      - ./uploads:/app/uploads
+    networks:
+      - idp-net
+
+networks:
+  idp-net:
+    driver: bridge

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internal Document Portal</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="login-page">
+    <main class="card">
+      <header class="brand">
+        <div class="logo">IDP</div>
+        <h1>Internal Document Portal</h1>
+        <p class="subtitle">Portail documentaire interne — accès réservé aux employés</p>
+      </header>
+
+      <form id="loginForm" class="form">
+        <label>
+          Email professionnel
+          <input type="email" name="email" value="employee@company.local" required />
+        </label>
+
+        <label>
+          Mot de passe
+          <input type="password" name="password" value="password123" required />
+        </label>
+
+        <button type="submit">Se connecter</button>
+      </form>
+
+      <div id="msg" class="msg"></div>
+
+      <footer class="hint">
+        <strong>Comptes de démonstration :</strong>
+        <ul>
+          <li>employee@company.local / password123</li>
+          <li>hr@company.local / hr2024</li>
+          <li>admin@company.local / admin123</li>
+        </ul>
+      </footer>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

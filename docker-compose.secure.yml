@@ -1,0 +1,41 @@
+# =============================================================
+# Internal Document Portal - docker-compose (version DURCIE)
+#
+# Demontre les contre-mesures decrites dans docs/HARDENING.md :
+#   - PAS de montage /var/run/docker.sock
+#   - utilisateur non-root
+#   - filesystem en lecture seule
+#   - drop ALL capabilities, no-new-privileges
+#   - limites memoire/CPU
+#   - reseau dedie
+# =============================================================
+
+services:
+  internal-document-portal:
+    build: .
+    image: internal-document-portal:hardened
+    container_name: idp-app-secure
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    user: "1000:1000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - idp-net
+
+networks:
+  idp-net:
+    driver: bridge

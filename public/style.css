@@ -1,0 +1,189 @@
+:root {
+  --bg: #0f172a;
+  --bg-soft: #111c34;
+  --panel: #1a2541;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --danger: #f87171;
+  --ok: #34d399;
+  --border: #1e293b;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+a { color: var(--accent); }
+
+button {
+  cursor: pointer;
+  border: none;
+  background: var(--accent-strong);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background .15s;
+}
+button:hover { background: var(--accent); }
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+button.ghost:hover { background: var(--panel); }
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 14px;
+}
+input:focus { outline: 2px solid var(--accent); }
+
+.form { display: flex; flex-direction: column; gap: 14px; }
+.form label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
+
+.msg { margin-top: 10px; min-height: 20px; font-size: 14px; }
+.msg.error { color: var(--danger); }
+.msg.ok    { color: var(--ok); }
+
+/* === Login page === */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #1e3a8a, var(--bg) 60%);
+}
+
+.card {
+  width: min(420px, 92vw);
+  background: var(--panel);
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .4);
+}
+
+.brand { text-align: center; margin-bottom: 24px; }
+.brand h1 { margin: 12px 0 4px; font-size: 22px; }
+.brand .subtitle { margin: 0; color: var(--muted); font-size: 13px; }
+
+.logo {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  background: var(--accent-strong);
+  color: white;
+  border-radius: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  align-items: center;
+  justify-content: center;
+}
+.logo.small { width: 36px; height: 36px; border-radius: 10px; font-size: 13px; }
+
+.hint {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 12px;
+}
+.hint ul { margin: 6px 0 0 18px; padding: 0; }
+
+/* === Dashboard === */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+.brand-inline { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.user-block { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 24px;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.panel h2 { margin-top: 0; font-size: 16px; }
+.panel h3 { margin: 18px 0 8px; font-size: 14px; color: var(--muted); }
+
+.files-list { display: flex; flex-direction: column; gap: 8px; }
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.file-item:hover { border-color: var(--accent); }
+.file-item .meta { color: var(--muted); font-size: 12px; }
+.files-list.compact .file-item { padding: 6px 10px; font-size: 13px; cursor: default; }
+
+.preview {
+  background: var(--bg-soft);
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  min-height: 120px;
+  font-family: 'Consolas', monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+.preview h3 { color: var(--accent); margin: 0 0 8px; font-size: 14px; }
+
+.upload-form { flex-direction: row; align-items: center; gap: 10px; }
+.upload-form input { flex: 1; }
+
+.code {
+  background: var(--bg-soft);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+  overflow-x: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,13 @@
+AUDIT INFRASTRUCTURE DEVOPS — Mars 2026
+========================================
+
+- 14 serveurs Linux (Ubuntu 22.04)
+- 6 hôtes Docker (Docker Engine 24.x)
+- 2 nœuds Docker Swarm
+- 1 registry privé interne
+
+POINT DE VIGILANCE :
+Plusieurs conteneurs montent /var/run/docker.sock
+afin d'orchestrer du CI interne. CONFIGURATION À RÉVISER.
+
+— Équipe IT, Sophie Admin

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDP — Dashboard</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="dashboard-page">
+    <header class="topbar">
+      <div class="brand-inline">
+        <div class="logo small">IDP</div>
+        <span>Internal Document Portal</span>
+      </div>
+      <div class="user-block">
+        <span id="userInfo">…</span>
+        <button id="logoutBtn" class="ghost">Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h2>Documents internes</h2>
+        <div id="filesList" class="files-list">Chargement…</div>
+      </section>
+
+      <section class="panel">
+        <h2>Aperçu du document</h2>
+        <div id="filePreview" class="preview">Sélectionnez un document.</div>
+      </section>
+
+      <section class="panel">
+        <h2>Uploader un document</h2>
+        <form id="uploadForm" class="form upload-form">
+          <label for="documentInput" class="sr-only">Fichier à téléverser</label>
+          <input
+            id="documentInput"
+            type="file"
+            name="document"
+            title="Sélectionnez un fichier à téléverser"
+            aria-label="Fichier à téléverser"
+            required
+          />
+          <button type="submit">Téléverser</button>
+        </form>
+        <div id="uploadMsg" class="msg"></div>
+        <h3>Fichiers uploadés</h3>
+        <div id="uploadsList" class="files-list compact">…</div>
+      </section>
+
+      <section class="panel">
+        <h2>État de l'API</h2>
+        <pre id="statusBox" class="code">…</pre>
+      </section>
+    </main>
+
+    <script src="/dashboard.js"></script>
+  </body>
+</html>

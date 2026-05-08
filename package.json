@@ -1,0 +1,25 @@
+{
+  "name": "internal-document-portal",
+  "version": "1.0.0",
+  "description": "Portail documentaire interne — projet pédagogique illustrant une vulnérabilité Docker (Container Escape via /var/run/docker.sock).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "docker",
+    "container-escape",
+    "devsecops",
+    "express",
+    "security",
+    "internal-portal"
+  ],
+  "author": "TP6 — Sécurité des conteneurs",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "multer": "^2.1.1"
+  }
+}

@@ -1,0 +1,31 @@
+# Dépendances
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variables d'environnement
+.env
+.env.*
+
+# Uploads (on conserve uniquement le placeholder)
+uploads/*
+!uploads/.gitkeep
+
+# IDE / Editeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build / cache
+dist/
+build/
+.cache/
